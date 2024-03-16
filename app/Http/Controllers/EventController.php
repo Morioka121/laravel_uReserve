@@ -16,9 +16,9 @@ class EventController extends Controller
         $today = Carbon::today();
 
         $events = DB::table('events')
-        ->whereDate('start_date','>=', $today)
-        ->orderBy('start_date', 'asc') //開始日時順
-        ->paginate(10);
+            ->whereDate('start_date', '>=', $today)
+            ->orderBy('start_date', 'asc') //開始日時順
+            ->paginate(10);
 
         return view("manager.events.index", compact("events"));
     }
@@ -74,6 +74,10 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         $event = Event::findOrFail($event->id);
+        $today = Carbon::today()->format('Y年m月d日');
+        if ($event->eventDate < $today) {
+            return abort(404);
+        }
         $eventDate = $event->editEventDate;
         $startTime = $event->startTime;
         $endTime = $event->endTime;
