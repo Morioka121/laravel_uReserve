@@ -64,12 +64,15 @@ class EventController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Event $event)
     {
-        //
+        //dd($event);
+        $event = Event::findOrFail($event->id);
+        $eventDate = $event->eventDate;
+        $startTime = $event->startTime;
+        $endTime = $event->endTime;
+        // dd($eventDate,$startTime,$endTime);
+        return view('manager.events.show', compact('event', 'eventDate', 'startTime', 'endTime'));
     }
 
     /**
