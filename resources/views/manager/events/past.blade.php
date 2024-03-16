@@ -15,7 +15,12 @@
                 {{ session('status') }}
               </div>
             @endif
-            <button onclick="location.href='{{ route('events.index')}}'"class="flex mb-4 ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">現在のイベントに戻る</button>
+            <div class="flex items-center justify-center">
+              <div>
+              <button
+                onclick="location.href='{{ route('events.index') }}'"class="flex mb-4 ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">現在のイベントに戻る</button>
+              </div>
+            </div>
             <div class=" w-full mx-auto overflow-auto">
               <table class="table-auto w-full text-left whitespace-no-wrap">
                 <thead>
@@ -37,10 +42,17 @@
                 <tbody>
                   @foreach ($events as $event)
                     <tr>
-                      <td class="text-blue-500 px-4 py-3"><a href="{{ route('events.show', ['event' => $event->id ])}}">{{ $event->name }}</a></td>
+                      <td class="text-blue-500 px-4 py-3"><a
+                          href="{{ route('events.show', ['event' => $event->id]) }}">{{ $event->name }}</a></td>
                       <td class="px-4 py-3">{{ $event->start_date }}</td>
                       <td class="px-4 py-3">{{ $event->end_date }}</td>
-                      <td class="px-4 py-3">ato</td>
+                      <td class="px-4 py-3">
+                        @if (is_null($event->number_of_people))
+                          0
+                        @else
+                          {{ $event->number_of_people }}
+                        @endif
+                      </td>
                       <td class="px-4 py-3">{{ $event->max_people }}</td>
                       <td class="px-4 py-3">{{ $event->is_visible }}</td>
                     </tr>
