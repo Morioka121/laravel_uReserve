@@ -9,7 +9,14 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
         <section class="text-gray-600 body-font">
-          <div class="container px-5 py-24 mx-auto">
+          <div class="container px-5 py-4 mx-auto">
+            @if (session('status'))
+              <div class="mb-4 font-medium text-sm text-green-600">
+                {{ session('status') }}
+              </div>
+            @endif
+            <button onclick="location.href='{{ route('events.create') }}'"
+              class="flex mb-4 ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">新規登録</button>
             <div class=" w-full mx-auto overflow-auto">
               <table class="table-auto w-full text-left whitespace-no-wrap">
                 <thead>
@@ -29,20 +36,19 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach ($events as $event )
-                        
+                  @foreach ($events as $event)
                     <tr>
-                        <td class="px-4 py-3">{{ $event->name}}</td>
-                        <td class="px-4 py-3">{{ $event->start_date}}</td>
-                        <td class="px-4 py-3">{{ $event->end_date}}</td>
-                        <td class="px-4 py-3">ato</td>
-                        <td class="px-4 py-3">{{ $event->max_people}}</td>
-                        <td class="px-4 py-3">{{ $event->is_visible}}</td>
+                      <td class="px-4 py-3">{{ $event->name }}</td>
+                      <td class="px-4 py-3">{{ $event->start_date }}</td>
+                      <td class="px-4 py-3">{{ $event->end_date }}</td>
+                      <td class="px-4 py-3">ato</td>
+                      <td class="px-4 py-3">{{ $event->max_people }}</td>
+                      <td class="px-4 py-3">{{ $event->is_visible }}</td>
                     </tr>
-                    @endforeach
+                  @endforeach
                 </tbody>
               </table>
-              {{ $events->links()}}
+              {{ $events->links() }}
             </div>
             <div class="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
             </div>
